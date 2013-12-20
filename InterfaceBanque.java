@@ -70,18 +70,18 @@ public class InterfaceBanque extends JFrame implements ActionListener {
 		setJMenuBar(menubar);
 		setVisible(true);
 		
-		//visuComptes.addActionListener(new visualiser(this));
-		//ajoutComptes.addActionListener(new ajouter(this));
-		//supprComptes.addActionListener(new supprimer(this));
-		//crediter.addActionListener(new Crediter(this));
-		//debiter.addActionListener(new Debiter(this));
-		//fermer.addActionListener(new Fermer(this));
-		//sauver.addActionListener(new Sauver(this));
-		//charger.addActionListener(new Charger(this));
-		//afficheSolde.addActionListener(new afficherSolde(this));
-		//afficheTitulaire.addActionListener(new afficherTitulaire(this));
-		//afficheOperation.addActionListener(new afficherOperation(this));
-		//mquitter.addActionListener(new Quitter(this));
+		visuComptes.addActionListener(new visualiser(this));
+		ajoutComptes.addActionListener(new ajouter(this));
+		supprComptes.addActionListener(new supprimer(this));
+		crediter.addActionListener(new Crediter(this));
+		debiter.addActionListener(new Debiter(this));
+		fermer.addActionListener(new Fermer(this));
+		sauver.addActionListener(new Sauver(this));
+		charger.addActionListener(new Charger(this));
+		afficheSolde.addActionListener(new afficherSolde(this));
+		afficheTitulaire.addActionListener(new afficherTitulaire(this));
+		afficheOperation.addActionListener(new afficherOperation(this));
+		mquitter.addActionListener(new Quitter(this));
 	}
 
 	public static void main(String[] args){
@@ -98,7 +98,8 @@ public class InterfaceBanque extends JFrame implements ActionListener {
 	}
 }
 	
-	/*class visualiser extends Banque implements ActionListener{
+	
+	class visualiser extends Banque implements ActionListener{//classe pour afficher les comptes (System.out, méthode ?)
 		Banque b = new Banque();
 		InterfaceBanque f;
 		visualiser(InterfaceBanque f){
@@ -111,20 +112,148 @@ public class InterfaceBanque extends JFrame implements ActionListener {
 		//texte.setText(b.afficherLesComptes());
 
 	}
+	}
 	
-	class visualiser extends Banque implements ActionListener{
+	class ajouter extends Banque implements ActionListener{//ajouter un compte : ajouter(saisir());
 		Banque b = new Banque();
 		InterfaceBanque f;
-		visualiser(InterfaceBanque f){
+		ajouter(InterfaceBanque f){
 		this.f=f;
-	}*/
+	}
 		
-	/*public void actionPerformed(ActionEvent e){
+	public void actionPerformed(ActionEvent e){
 		JTextArea texte = f.texte;
 		//JMenuItem visuComptes = f.visuComptes;
-		//texte.setText(b.afficherLesComptes());
-
+		b.ajouter(b.saisir());
 	}
+	}
+	
+	class supprimer extends Banque implements ActionListener{//supprimer un compte : enlever()
+		Banque b = new Banque();
+		InterfaceBanque f;
+		supprimer(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
+	class Crediter extends Banque implements ActionListener{//créditer : .getCompte(num).crediter()
+		Banque b = new Banque();
+		InterfaceBanque f;
+		Crediter(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
+	class Debiter extends Banque implements ActionListener{//débiter : .getCompte(num).debiter();
+		Banque b = new Banque();
+		InterfaceBanque f;
+		Debiter(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
+	class Fermer extends Banque implements ActionListener{//fermer compte : ??
+		Banque b = new Banque();
+		InterfaceBanque f;
+		Fermer(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
+	class Sauver extends Banque implements ActionListener{//sauver configuration
+		Banque b = new Banque();
+		InterfaceBanque f;
+		Sauver(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
+	class Charger extends Banque implements ActionListener{//charger configuration
+		Banque b = new Banque();
+		InterfaceBanque f;
+		Charger(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
+	class afficherSolde extends Banque implements ActionListener{//afficher solde compte X
+		Banque b = new Banque();
+		InterfaceBanque f;
+		afficherSolde(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
+	class afficherTitulaire extends Banque implements ActionListener{//afficher id compte X
+		Banque b = new Banque();
+		InterfaceBanque f;
+		afficherTitulaire(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
+	class afficherOperation extends Banque implements ActionListener{//afficher opérations : supprimer/créditer/ajouter...
+		Banque b = new Banque();
+		InterfaceBanque f;
+		afficherOperation(InterfaceBanque f){
+		this.f=f;
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		JTextArea texte = f.texte;
+		//JMenuItem visuComptes = f.visuComptes;
+		b.ajouter(b.saisir());
+	}
+	}
+	
 	/*public void actionPerformed(ActionEvent e){
 		JMenuItem sauver = f.sauver;
 		JTextArea texte = f.texte;
@@ -147,34 +276,9 @@ public class InterfaceBanque extends JFrame implements ActionListener {
 		}
 }*/
 
-	/*class Majuscule2 implements ActionListener{
+	class Quitter implements ActionListener{
 		InterfaceBanque f;
-			Majuscule2(InterfaceBanque f){
-			this.f=f;
-		}
-
-		public void actionPerformed(ActionEvent e){
-			JTextArea texte = f.texte;
-			JButton maj = f.maj;
-			JMenuItem mMaj = f.mMaj;
-			String leTexte = texte.getText();
-			if (maj.getText().equals("MAJ")) {
-				leTexte = leTexte.toUpperCase();
-				maj.setText("MIN");
-				mMaj.setText("MIN");
-			}
-			else{
-				leTexte = leTexte.toLowerCase();
-				maj.setText("MAJ");
-				mMaj.setText("MAJ");
-			}
-			texte.setText(leTexte);
-		}
-	}
-
-	class Quitter2 implements ActionListener{
-		InterfaceBanque f;
-			Quitter2(InterfaceBanque f){
+			Quitter(InterfaceBanque f){
 			this.f=f;
 		}
 
@@ -182,4 +286,4 @@ public class InterfaceBanque extends JFrame implements ActionListener {
 			f.dispose();
 			System.exit(0);
 	}
-	}*/
+	}
