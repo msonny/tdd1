@@ -1,288 +1,236 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class InterfaceBanque extends JFrame implements ActionListener {
-	JButton maj,quitter;
-	JTextArea texte;
-	JMenuBar menubar;
-	JMenuItem mquitter,visuComptes, ajoutComptes, supprComptes, crediter, fermer, debiter, sauver, charger, afficheSolde, afficheTitulaire, afficheOperation;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-	public InterfaceBanque(String name){
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle(name);
-		setSize(400,500);
-		setResizable(false);
-		//maj = new JButton("MAJ");
-		//quitter = new JButton("Quitter");
-		Container cont = getContentPane();
-		setLayout(new BorderLayout());
-		JPanel entete = new JPanel();
-		cont.add("North", entete);
-		//entete.add(maj);
-		//entete.add(quitter);
-		texte = new JTextArea();
-		cont.add("Center",texte);
-		//texte.setText("La zone de texte");
-		JLabel piedpage = new JLabel("Comptes Bancaires");
-		cont.add("South",piedpage);
+public class InterfaceBanque extends JFrame implements ActionListener{
 
-		menubar = new JMenuBar();
-		JMenu m1 = new JMenu("Fichier");
-		JMenu m2 = new JMenu("Gérer");
-		JMenu m3 = new JMenu("Opérations");
-		JMenu m4 = new JMenu("Visualiser");
-		JMenu m5 = new JMenu("Quitter");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3162943452301723219L;
+	Banque b;
+	JFrame frame;
+	JButton buttonIncr;
+	JButton buttonSup;
+	JButton buttonList, buttonCrediter, buttonDebiter, buttonFermer, buttonSauver, buttonCharger;
+	JLabel label;
+	JTextField iden,iden1,nom,solde;
+	JTextField iden2 = new JTextField("iden");
+	JTextField iden3 = new JTextField("somme");
+	JTextField iden4 = new JTextField("iden");
+	JTextField iden5 = new JTextField("somme");
+	JTextField iden6 = new JTextField("iden");
+	JLabel id = new JLabel("iden");
+	JLabel n = new JLabel("nom");
+	JLabel s = new JLabel("solde");
+	JPanel pane;
+	JPanel pane1;
+	public InterfaceBanque() {
+		b = new Banque();
+	}
+	@SuppressWarnings("deprecation")
+	public void go(){
+		frame = new JFrame("Ajout compte");
+		buttonIncr = new JButton("ajouter");
+		label = new JLabel("un petit texte");
+		iden= new JTextField("identifiant");
+		nom= new JTextField("detenteur");
+		solde= new JTextField("solde");
+		pane = new JPanel(new GridLayout());
+		pane1 = new JPanel(new GridLayout());
+		pane.add(buttonIncr,BorderLayout.EAST);
+		buttonIncr.addActionListener(this);
+
+		pane1.add(iden);
+		pane1.add(nom);
+		pane1.add(solde);
+		frame.getContentPane().add(pane, BorderLayout.SOUTH);
+		frame.getContentPane().add(pane1, BorderLayout.NORTH);
+		frame.setSize(400, 100);
+		frame.setLocation(100, 100);
+		frame.show();
+	}		
+	public void onglet(){
+		JFrame f = new JFrame("Ma Banque");
+		f.setSize(520, 250);
+		JPanel pannel = new JPanel();
+
+		JTabbedPane onglets = new JTabbedPane(SwingConstants.TOP);
+
+		JPanel onglet1 = new JPanel();
+		iden= new JTextField("identifiant");
+		nom= new JTextField("detenteur");
+		solde= new JTextField("solde");
+		buttonIncr = new JButton("ajouter");
+		onglet1.add(iden);
+		onglet1.add(nom);
+		onglet1.add(solde);
+		onglet1.add(buttonIncr);
+		buttonIncr.addActionListener(this);
+
+		onglet1.setPreferredSize(new Dimension(400, 180));
+		onglets.addTab("Ajout Compte", onglet1);
+		/**********************************supprimer************************************************/
+		JPanel onglet2 = new JPanel();
+		JLabel titreOnglet2 = new JLabel("entrez identifiant");
+		iden1= new JTextField("iden");
+		buttonSup = new JButton("supprimer");
+		onglet2.add(titreOnglet2);
+		onglet2.add(iden1);
+		onglet2.add(buttonSup);
+		buttonSup.addActionListener(this);
+		onglet2.setPreferredSize(new Dimension(400, 180));
+		onglets.addTab("Suppimer compte", onglet2);
+		/*********************************************liste des comptes ****************************************************/
+		JPanel onglet3 = new JPanel();
+		//JLabel titreOnglet4 = new JLabel("compte");
+		id = new JLabel("iden");
+
+		//s = new JLabel("solde");
+		buttonList = new JButton("liste");
+		//onglet3.add(titreOnglet4);
+
+		onglet3.add(id);
+
+		//onglet3.add(s);
+		onglet3.add(buttonList);
+		buttonList.addActionListener(this);
+		onglet3.setPreferredSize(new Dimension(400, 180));
+		onglets.addTab("liste comptes", onglet3);
+
+		/*******************************************************************************************************************/
+		JPanel onglet4 = new JPanel();
+		//JLabel titreOnglet4 = new JLabel("compte");
+		JTextField iden2 = new JTextField("iden");
+		JTextField iden3 = new JTextField("somme");
+		JTextField iden4 = new JTextField("iden");
+		JTextField iden5 = new JTextField("somme");
+		JTextField iden6 = new JTextField("iden");
+		buttonCrediter = new JButton("Crediter");
+		buttonDebiter = new JButton("Debiter");
+		buttonFermer = new JButton("Fermer");
+		//onglet3.add(titreOnglet4);
+
+		onglet4.add(iden2);
+		onglet4.add(iden3);
+		onglet4.add(iden4);
+		onglet4.add(iden5);
+		onglet4.add(iden6);
+
+		onglet4.add(buttonCrediter);
+		onglet4.add(buttonDebiter);
+		onglet4.add(buttonFermer);
+		buttonCrediter.addActionListener(this);
+		buttonDebiter.addActionListener(this);
+		buttonFermer.addActionListener(this);
+		onglet4.setPreferredSize(new Dimension(400, 180));
+		onglets.addTab("operations comptes", onglet4);
+
+		/*******************************************************************************************************************/
 		
-		menubar.add(m1);
-		menubar.add(m2);
-		menubar.add(m3);
-		menubar.add(m4);
-		menubar.add(m5);
+		JPanel onglet5 = new JPanel();
+		buttonSauver = new JButton("Sauver");
+		buttonCharger = new JButton("Charger");
+
+		onglet5.add(buttonSauver);
+		onglet5.add(buttonCharger);
+		buttonSauver.addActionListener(this);
+		buttonCharger.addActionListener(this);
+		onglet5.setPreferredSize(new Dimension(400, 180));
+		onglets.addTab("sauver/charger comptes", onglet5);
+
+		/*******************************************************************************************************************/
 		
-		visuComptes = new JMenuItem("Visualiser Compte");
-		ajoutComptes = new JMenuItem("Ajouter Compte");
-		supprComptes = new JMenuItem("Supprimer Compte");
-		crediter = new JMenuItem("Créditer");
-		debiter = new JMenuItem("Débiter");
-		fermer = new JMenuItem("Fermer");
-		sauver = new JMenuItem("Sauver");
-		charger = new JMenuItem("Charger");
-		afficheSolde = new JMenuItem("Afficher solde compte");
-		afficheTitulaire = new JMenuItem("Afficher titulaire compte");
-		afficheOperation = new JMenuItem("Afficher opérations");
-		mquitter = new JMenuItem("Quitter");
-		
-		m1.add(sauver);
-		m1.add(charger);
-		m1.add(mquitter);
-		m2.add(visuComptes);
-		m2.add(ajoutComptes);
-		m2.add(supprComptes);
-		m3.add(crediter);
-		m3.add(debiter);
-		m3.add(fermer);
-		m4.add(afficheSolde);
-		m4.add(afficheTitulaire);
-		m4.add(afficheOperation);
-		setJMenuBar(menubar);
-		setVisible(true);
-		
-		visuComptes.addActionListener(new Visualiser(this));
-		ajoutComptes.addActionListener(new ajouter(this));
-		supprComptes.addActionListener(new supprimer(this));
-		crediter.addActionListener(new Crediter(this));
-		debiter.addActionListener(new Debiter(this));
-		fermer.addActionListener(new Fermer(this));
-		sauver.addActionListener(new Sauver(this));
-		charger.addActionListener(new Charger(this));
-		afficheSolde.addActionListener(new afficherSolde(this));
-		afficheTitulaire.addActionListener(new afficherTitulaire(this));
-		afficheOperation.addActionListener(new afficherOperation(this));
-		mquitter.addActionListener(new Quitter(this));
+		onglets.setOpaque(true);
+		pannel.add(onglets);
+		f.getContentPane().add(pannel);
+		f.setVisible(true);
+
 	}
 
-	public static void main(String[] args){
-		new InterfaceBanque("Comptes Bancaires");
-	}
-	public void actionPerformed(ActionEvent e){
-		if((e.getSource()==quitter)){
-			dispose();
-			System.exit(0);
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object  source=e.getSource();
+
+		if  (source==buttonIncr){
+			System.out.println("ajout !");
+			Compte c1 = new Compte(Integer.parseInt(iden.getText()), nom.getText(), Integer.parseInt(solde.getText()));
+			b.ajouter(c1);
+			//b.ajouter(b.saisir(nom.getText(), Integer.parseInt(solde.getText())));	
+			b.afficherLesComptes();
 		}
-		if (e.getSource()==maj) {
-			texte.setText(texte.getText().toUpperCase());
-		}
-	}
-}
-	
-	
-class Visualiser extends Banque implements ActionListener{//classe pour afficher les comptes (System.out, méthode ?)
-	Banque b = new Banque();
-	InterfaceBanque f;
-	Visualiser(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		//texte.setText(b.afficherLesComptes());
-	}
-}
-	
-class ajouter extends Banque implements ActionListener{//ajouter un compte : ajouter(saisir());
-	Banque b = new Banque();
-	InterfaceBanque f;
-	ajouter(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-	
-class supprimer extends Banque implements ActionListener{//supprimer un compte : enlever()
-	Banque b = new Banque();
-	InterfaceBanque f;
-	supprimer(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-	
-class Crediter extends Banque implements ActionListener{//créditer : .getCompte(num).crediter()
-	Banque b = new Banque();
-	InterfaceBanque f;
-	Crediter(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-	
-class Debiter extends Banque implements ActionListener{//débiter : .getCompte(num).debiter();
-	Banque b = new Banque();
-	InterfaceBanque f;
-	Debiter(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-	
-class Fermer extends Banque implements ActionListener{//fermer compte : ??
-	Banque b = new Banque();
-	InterfaceBanque f;
-	Fermer(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-	
-class Sauver extends Banque implements ActionListener{//sauver configuration
-	Banque b = new Banque();
-	InterfaceBanque f;
-	Sauver(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
+		else if  (source==buttonSup){
+			System.out.println("supr");
 
-class Charger extends Banque implements ActionListener{//charger configuration
-	Banque b = new Banque();
-	InterfaceBanque f;
-	Charger(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-	
-class afficherSolde extends Banque implements ActionListener{//afficher solde compte X
-	Banque b = new Banque();
-	InterfaceBanque f;
-	afficherSolde(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-	
-class afficherTitulaire extends Banque implements ActionListener{//afficher id compte X
-	Banque b = new Banque();
-	InterfaceBanque f;
-	afficherTitulaire(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-
-class afficherOperation extends Banque implements ActionListener{//afficher opérations : supprimer/créditer/ajouter...
-	Banque b = new Banque();
-	InterfaceBanque f;
-	afficherOperation(InterfaceBanque f){
-		this.f=f;
-	}
-		
-	public void actionPerformed(ActionEvent e){
-		JTextArea texte = f.texte;
-		//JMenuItem visuComptes = f.visuComptes;
-		b.ajouter(b.saisir());
-	}
-}
-	
-	/*public void actionPerformed(ActionEvent e){
-		JMenuItem sauver = f.sauver;
-		JTextArea texte = f.texte;
-		PrintWriter ecrivain=null;
-		try{
-			ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("test.txt")));
-			ecrivain.println(texte.getText());
-		}catch(FileNotFoundException ex){
-			System.err.println(ex);
-		}catch(IOException exe){
-			System.err.println(exe);
+			b.supprimerComptes(Integer.parseInt(iden1.getText()));	
+			b.afficherLesComptes();
 		}
-		finally{
-			try{
-				ecrivain.close();
-			}catch(Exception exec){
-				System.err.println(exec);
+		else if  (source==buttonList){
+			
+			for (int i = 0; i < b.getlesComptes().size(); i++) {
+				Compte maValeur = b.getlesComptes().get(i);
+				//JLabel titreOnglet3 = new JLabel("compte "+i);
+			id.setText(""+maValeur);
+			//n.setText(""+b.getlesComptes().get(i).getNumComp());
+			//s.setText(""+b.getlesComptes().get(i).getSolde());
+
+
 			}
+			
+		}
+		else if (source==buttonDebiter){
+			b.getCompte(Integer.parseInt(iden2.getText())).debiter(Integer.parseInt(iden3.getText()));
+		}
+		else if (source==buttonCrediter){
+			b.getCompte(Integer.parseInt(iden4.getText())).crediter(Integer.parseInt(iden5.getText()));
+		}
+		else if (source==buttonFermer){
+			b.getCompte(Integer.parseInt(iden4.getText())).fermer();
+		}
+		else if (source==buttonSauver){
+			b.sauverTxt("banque.txt");
+		}
+		else if (source==buttonCharger){
+			b=Banque.chargerTxt("banque.txt");
 		}
 		}
-}*/
-
-class Quitter implements ActionListener{
-	InterfaceBanque f;
-	Quitter(InterfaceBanque f){
-		this.f=f;
+	
+	public static void main(String[] args) {
+		
+		InterfaceBanque inter = new InterfaceBanque();
+		//inter.go();
+		inter.onglet();
+		/*Comptes c1 = new Comptes(0, "niass", 4000);
+		Comptes c2 = new Comptes(1,"baye",1000);
+		Banque b = new Banque();
+		b.ajouterComptes(c1);
+		b.ajouterComptes(c2);
+	    b.crediter(c1,200.00);	
+		b.debiter(c2,100);
+		
+        b.afficherInfoComptes();
+        b.supprimerComptes(c2);
+        b.afficherInfoComptes();*/
 	}
 
-	public void actionPerformed(ActionEvent e){
-		f.dispose();
-		System.exit(0);
 	}
-}
+
