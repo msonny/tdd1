@@ -50,6 +50,7 @@ public class Banque implements Serializable{
 	if(i==lesComptes.size()) return null;
 	return lesComptes.get(i);
     }
+	
     public void enlever(int numComp){
 	int i;
 	for ( i=0; i<lesComptes.size();i++){
@@ -266,16 +267,7 @@ public class Banque implements Serializable{
 			sc.close();
 			return b;
 		}
-    }
-										  
-	public void supprimerComptes(int iden){
-	     for (int i = 0; i < lesComptes.size(); i++) {
-			if (!lesComptes.isEmpty() && lesComptes.get(i).getNumComp()==iden) {
-				lesComptes.remove(iden);
-			}
-		}
-	     
-		}				   
+    }													   
 					   
 					   
 	static public void main(String []args){
