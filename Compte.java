@@ -19,12 +19,12 @@ class Compte implements Serializable{
 	 * @param banque
 	 */
    
-	public Compte(int idComptes, String nomDetenteur, double solde) {
+	/*public Compte(int idComptes, String nomDetenteur, double solde) {
 		super();
 		this.id = id;
-		this.numComp = numComp;
+		this.numComp = numcomp;
 		this.solde = solde;
-	}
+	}*/
 
 	/**
 	 * constructeur de compte general
@@ -32,7 +32,7 @@ class Compte implements Serializable{
 	 * @param id
 	 * @param solde
 	 */
-   Compte(int num,String id,int solde){
+   Compte(int num, String id,int solde){
 	this.solde=solde;
 	this.id=id;
 	numComp=num;
@@ -65,7 +65,7 @@ class Compte implements Serializable{
 
 	 */
    public String toString(){
-	return "id :"+id+" numero :"+ numComp+" Solde :"+solde;
+	return "num :"+numComp+" detenteur :"+id+" Solde :"+solde;
    }
 
 	/**
