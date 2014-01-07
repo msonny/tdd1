@@ -1,23 +1,22 @@
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.*;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Locale;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -33,55 +32,43 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 	JButton buttonSup;
 	JButton buttonList, buttonCrediter, buttonDebiter, buttonFermer, buttonAfficher, buttonSauver, buttonCharger;
 	JLabel label;
-	JTextField iden,iden1,nom,solde;
-	JTextField iden2 = new JTextField("iden");
-	JTextField iden3 = new JTextField("somme");
-	JTextField iden4 = new JTextField("iden");
-	JTextField iden5 = new JTextField("somme");
-	JTextField iden6 = new JTextField("iden");
+	JTextField iden,iden1,iden2, iden3, iden4, iden5, iden6, iden7, nom,solde;
 	JLabel id = new JLabel("iden");
 	JLabel n = new JLabel("nom");
 	JLabel s = new JLabel("solde");
 	JPanel pane;
 	JPanel pane1;
 	JPanel onglet5 = new JPanel();
+	JPanel onglet4 = new JPanel();
 	JLabel save=new JLabel();
 	JLabel load=new JLabel();
+	JLabel credit=new JLabel();
+	JLabel debit=new JLabel();
+	JLabel affiche=new JLabel();
 
 	public InterfaceBanque() {
 		b = new Banque();
 	}
-	@SuppressWarnings("deprecation")
-	public void go(){
-		frame = new JFrame("Ajout compte");
-		buttonIncr = new JButton("Ajouter");
-		label = new JLabel("un petit texte");
-		iden= new JTextField("identifiant");
-		nom= new JTextField("detenteur");
-		solde= new JTextField("solde");
-		pane = new JPanel(new GridLayout());
-		pane1 = new JPanel(new GridLayout());
-		pane.add(buttonIncr,BorderLayout.EAST);
-		buttonIncr.addActionListener(this);
-
-		pane1.add(iden);
-		pane1.add(nom);
-		pane1.add(solde);
-		frame.getContentPane().add(pane, BorderLayout.SOUTH);
-		frame.getContentPane().add(pane1, BorderLayout.NORTH);
-		frame.setSize(400, 100);
-		frame.setLocation(100, 100);
-		frame.show();
-	}		
+	
 	public void onglet(){
-		JFrame f = new JFrame("Ma Banque");
-		f.setSize(520, 250);
+		final JFrame f = new JFrame("Ma Banque");
+		f.setSize(520, 550);
 		JPanel pannel = new JPanel();
-
+		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    //Ca s'est pour éviter que la fenêtre se ferme même si on clique sur "Non"
+	 
+	    //Définition de l'écouteur à l'aide d'une classe interne anonyme
+	    f.addWindowListener(new WindowAdapter(){
+	             public void windowClosing(WindowEvent e){
+	         		File MyFile = new File("evenement.txt");
+	        		MyFile.delete(); 
+	                f.dispose();   
+	             }
+	    });
 		JTabbedPane onglets = new JTabbedPane(SwingConstants.TOP);
 
 		JPanel onglet1 = new JPanel();
-		iden= new JTextField("identifiant");
+		iden= new JTextField("numéro");
 		nom= new JTextField("detenteur");
 		solde= new JTextField("solde");
 		buttonIncr = new JButton("Ajouter");
@@ -91,7 +78,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		onglet1.add(buttonIncr);
 		buttonIncr.addActionListener(this);
 
-		onglet1.setPreferredSize(new Dimension(400, 180));
+		onglet1.setPreferredSize(new Dimension(400, 380));
 		onglets.addTab("Ajouter compte", onglet1);
 		/**********************************supprimer************************************************/
 		JPanel onglet2 = new JPanel();
@@ -102,7 +89,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		onglet2.add(iden1);
 		onglet2.add(buttonSup);
 		buttonSup.addActionListener(this);
-		onglet2.setPreferredSize(new Dimension(400, 180));
+		onglet2.setPreferredSize(new Dimension(400, 380));
 		onglets.addTab("Suppimer compte", onglet2);
 		/*********************************************liste des comptes ****************************************************/
 		JPanel onglet3 = new JPanel();
@@ -119,23 +106,23 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		//onglet3.add(s);
 		onglet3.add(buttonList);
 		buttonList.addActionListener(this);
-		onglet3.setPreferredSize(new Dimension(400, 180));
+		onglet3.setPreferredSize(new Dimension(400, 380));
 		onglets.addTab("Liste comptes", onglet3);
 
 		/*******************************************************************************************************************/
 		JPanel onglet4 = new JPanel();
 		//JLabel titreOnglet4 = new JLabel("compte");
-		JTextField iden2 = new JTextField("iden");
-		JTextField iden3 = new JTextField("somme");
-		JTextField iden4 = new JTextField("iden");
-		JTextField iden5 = new JTextField("somme");
-		JTextField iden6 = new JTextField("iden");
-		JTextField iden7 = new JTextField("iden");
+		iden2 = new JTextField("iden");
+		iden3 = new JTextField("somme");
+		iden4 = new JTextField("iden");
+		iden5 = new JTextField("somme");
+		iden6 = new JTextField("iden");
+		iden7 = new JTextField("iden");
+		affiche = new JLabel("");
 		buttonCrediter = new JButton("Crediter");
 		buttonDebiter = new JButton("Debiter");
 		buttonFermer = new JButton("Fermer");
 		buttonAfficher = new JButton("Afficher les opérations");
-		//onglet3.add(titreOnglet4);
 
 		onglet4.add(iden2);
 		onglet4.add(iden3);
@@ -147,12 +134,19 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		onglet4.add(buttonFermer);
 		onglet4.add(iden7);
 		onglet4.add(buttonAfficher);
+		onglet4.add(affiche);
 		buttonCrediter.addActionListener(this);
 		buttonDebiter.addActionListener(this);
 		buttonFermer.addActionListener(this);
 		buttonAfficher.addActionListener(this);
-		onglet4.setPreferredSize(new Dimension(400, 180));
+		onglet4.setPreferredSize(new Dimension(400, 380));
 		onglets.addTab("Operations comptes", onglet4);
+		credit.setText("credit effectue");
+		credit.setVisible(false);
+		onglet4.add(credit);
+		debit.setText("Debit effectue");
+		debit.setVisible(false);
+		onglet4.add(debit);
 
 		/*******************************************************************************************************************/
 		
@@ -163,7 +157,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		onglet5.add(buttonCharger);
 		buttonSauver.addActionListener(this);
 		buttonCharger.addActionListener(this);
-		onglet5.setPreferredSize(new Dimension(400, 180));
+		onglet5.setPreferredSize(new Dimension(400, 380));
 		onglets.addTab("Sauver/charger comptes", onglet5);
 
 		/*******************************************************************************************************************/
@@ -187,15 +181,53 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		if  (source==buttonIncr){
 			System.out.println("ajout !");
 			Compte c1 = new Compte(Integer.parseInt(iden.getText()), nom.getText(), Integer.parseInt(solde.getText()));
-			b.ajouter(c1);
-			//b.ajouter(b.saisir(nom.getText(), Integer.parseInt(solde.getText())));	
+			b.ajouter(c1);	
 			b.afficherLesComptes();
+			PrintWriter ecrivain=null;
+			try{
+				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
+
+				ecrivain.println("Ajout d'un compte : identifiant : " +iden.getText()+"nom : " +nom.getText()+"solde : " +solde.getText());
+			}
+			catch(FileNotFoundException ex){
+				System.err.println(ex);
+			}
+			catch(IOException ex){
+				System.err.println(ex);
+			}
+			finally{
+				try{
+					ecrivain.close();
+				}
+				catch (Exception ex){
+					System.err.println(ex);
+				}
+			}
 		}
 		else if  (source==buttonSup){
 			System.out.println("supr");
 
-			b.supprimerComptes(Integer.parseInt(iden1.getText()));	
-			b.afficherLesComptes();
+			b.enlever(Integer.parseInt(iden1.getText()));
+			PrintWriter ecrivain=null;
+			try{
+				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
+
+				ecrivain.println("Suppression du compte numéro " +iden1.getText());
+			}
+			catch(FileNotFoundException ex){
+				System.err.println(ex);
+			}
+			catch(IOException ex){
+				System.err.println(ex);
+			}
+			finally{
+				try{
+					ecrivain.close();
+				}
+				catch (Exception ex){
+					System.err.println(ex);
+				}
+			}
 		}
 		else if  (source==buttonList){
 			id.setText("<html>");
@@ -209,45 +241,168 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 			}
 			id.setText(id.getText()+"</html>");
 			id.setVisible(true);
+			
+			PrintWriter ecrivain=null;
+			try{
+				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
+
+				ecrivain.println("Listage des comptes");
+			}
+			catch(FileNotFoundException ex){
+				System.err.println(ex);
+			}
+			catch(IOException ex){
+				System.err.println(ex);
+			}
+			finally{
+				try{
+					ecrivain.close();
+				}
+				catch (Exception ex){
+					System.err.println(ex);
+				}
+			}
 		}
 		else if (source==buttonCrediter){
+	
 			b.getCompte(Integer.parseInt(iden2.getText())).crediter(Integer.parseInt(iden3.getText()));
+			credit.setVisible(true);
+			
+			PrintWriter ecrivain=null;
+			try{
+				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
+
+				ecrivain.println("Crédit du compte " +iden2.getText()+"de " +iden3.getText());
+			}
+			catch(FileNotFoundException ex){
+				System.err.println(ex);
+			}
+			catch(IOException ex){
+				System.err.println(ex);
+			}
+			finally{
+				try{
+					ecrivain.close();
+				}
+				catch (Exception ex){
+					System.err.println(ex);
+				}
+			}
+			
 		}
 		else if (source==buttonDebiter){
+			
 			b.getCompte(Integer.parseInt(iden4.getText())).debiter(Integer.parseInt(iden5.getText()));
+			debit.setVisible(true);
+			
+			PrintWriter ecrivain=null;
+			try{
+				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
+
+				ecrivain.println("Débit du compte " +iden4.getText()+"de " +iden5.getText());
+			}
+			catch(FileNotFoundException ex){
+				System.err.println(ex);
+			}
+			catch(IOException ex){
+				System.err.println(ex);
+			}
+			finally{
+				try{
+					ecrivain.close();
+				}
+				catch (Exception ex){
+					System.err.println(ex);
+				}
+			}
+			
 		}
 		else if (source==buttonFermer){
-			b.getCompte(Integer.parseInt(iden4.getText())).fermer();
+			//b.getCompte(Integer.parseInt(iden4.getText())).fermer();
 		}
 		else if (source==buttonAfficher){
-			
+			Scanner sc=null;	
+				try{
+					sc= new Scanner(new File("evenement.txt")).useLocale(Locale.US);
+					
+					while(sc.hasNext()){
+						
+						String nom=sc.nextLine();
+						affiche.setText("<html>"+nom+"<br /></html>");
+						
+					}
+					
+				}
+				catch(FileNotFoundException ex){
+					System.err.println(ex);
+				}
+				finally{
+					sc.close();
+				}
+				
 		}
 		else if (source==buttonSauver){
 			b.sauverTxt("sauvegarde.txt");
 			save.setVisible(true);
+			
+			PrintWriter ecrivain=null;
+			try{
+				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
+
+				ecrivain.println("Sauvegarde des comptes");
+			}
+			catch(FileNotFoundException ex){
+				System.err.println(ex);
+			}
+			catch(IOException ex){
+				System.err.println(ex);
+			}
+			finally{
+				try{
+					ecrivain.close();
+				}
+				catch (Exception ex){
+					System.err.println(ex);
+				}
+			}
 		}
 		else if (source==buttonCharger){
 			b=Banque.chargerTxt("sauvegarde.txt");
 			load.setVisible(true);
+			
+			PrintWriter ecrivain=null;
+			try{
+				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
+
+				ecrivain.println("Chargement des comptes");
+			}
+			catch(FileNotFoundException ex){
+				System.err.println(ex);
+			}
+			catch(IOException ex){
+				System.err.println(ex);
+			}
+			finally{
+				try{
+					ecrivain.close();
+				}
+				catch (Exception ex){
+					System.err.println(ex);
+				}
+			}
 		}
 		}
 	
+	/*public void windowClosing(WindowEvent e) {
+		File MyFile = new File("evenement.txt");
+		MyFile.delete(); 
+		}
+	*/
 	public static void main(String[] args) {
 		
 		InterfaceBanque inter = new InterfaceBanque();
-		//inter.go();
 		inter.onglet();
-		/*Comptes c1 = new Comptes(0, "niass", 4000);
-		Comptes c2 = new Comptes(1,"baye",1000);
-		Banque b = new Banque();
-		b.ajouterComptes(c1);
-		b.ajouterComptes(c2);
-	    b.crediter(c1,200.00);	
-		b.debiter(c2,100);
-		
-        b.afficherInfoComptes();
-        b.supprimerComptes(c2);
-        b.afficherInfoComptes();*/
+
 	}
 
 	}
