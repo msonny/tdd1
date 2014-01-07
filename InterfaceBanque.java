@@ -172,10 +172,10 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		pannel.add(onglets);
 		f.getContentPane().add(pannel);
 		f.setVisible(true);
-		save.setText("Sauvegarde effectuee : ./sauvegarde.txt\n");
+		save.setText("Sauvegarde effectuee : ./sauvegarde.txt");
 		save.setVisible(false);
 		onglet5.add(save);
-		load.setText("Comptes chargés.\n");
+		load.setText("Comptes chargés.");
 		load.setVisible(false);
 		onglet5.add(load);
 	}
@@ -210,11 +210,11 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 			id.setText(id.getText()+"</html>");
 			id.setVisible(true);
 		}
-		else if (source==buttonDebiter){
-			b.getCompte(Integer.parseInt(iden2.getText())).debiter(Integer.parseInt(iden3.getText()));
-		}
 		else if (source==buttonCrediter){
-			b.getCompte(Integer.parseInt(iden4.getText())).crediter(Integer.parseInt(iden5.getText()));
+			b.getCompte(Integer.parseInt(iden2.getText())).crediter(Integer.parseInt(iden3.getText()));
+		}
+		else if (source==buttonDebiter){
+			b.getCompte(Integer.parseInt(iden4.getText())).debiter(Integer.parseInt(iden5.getText()));
 		}
 		else if (source==buttonFermer){
 			b.getCompte(Integer.parseInt(iden4.getText())).fermer();
