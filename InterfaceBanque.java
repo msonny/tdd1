@@ -31,7 +31,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 	JFrame frame;
 	JButton buttonIncr;
 	JButton buttonSup;
-	JButton buttonList, buttonCrediter, buttonDebiter, buttonFermer, buttonSauver, buttonCharger;
+	JButton buttonList, buttonCrediter, buttonDebiter, buttonFermer, buttonAfficher, buttonSauver, buttonCharger;
 	JLabel label;
 	JTextField iden,iden1,nom,solde;
 	JTextField iden2 = new JTextField("iden");
@@ -44,13 +44,17 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 	JLabel s = new JLabel("solde");
 	JPanel pane;
 	JPanel pane1;
+	JPanel onglet5 = new JPanel();
+	JLabel save=new JLabel();
+	JLabel load=new JLabel();
+
 	public InterfaceBanque() {
 		b = new Banque();
 	}
 	@SuppressWarnings("deprecation")
 	public void go(){
 		frame = new JFrame("Ajout compte");
-		buttonIncr = new JButton("ajouter");
+		buttonIncr = new JButton("Ajouter");
 		label = new JLabel("un petit texte");
 		iden= new JTextField("identifiant");
 		nom= new JTextField("detenteur");
@@ -80,7 +84,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		iden= new JTextField("identifiant");
 		nom= new JTextField("detenteur");
 		solde= new JTextField("solde");
-		buttonIncr = new JButton("ajouter");
+		buttonIncr = new JButton("Ajouter");
 		onglet1.add(iden);
 		onglet1.add(nom);
 		onglet1.add(solde);
@@ -88,12 +92,12 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		buttonIncr.addActionListener(this);
 
 		onglet1.setPreferredSize(new Dimension(400, 180));
-		onglets.addTab("Ajout Compte", onglet1);
+		onglets.addTab("Ajouter compte", onglet1);
 		/**********************************supprimer************************************************/
 		JPanel onglet2 = new JPanel();
-		JLabel titreOnglet2 = new JLabel("entrez identifiant");
-		iden1= new JTextField("iden");
-		buttonSup = new JButton("supprimer");
+		JLabel titreOnglet2 = new JLabel("Saisir identifiant :");
+		iden1= new JTextField(3);
+		buttonSup = new JButton("Supprimer");
 		onglet2.add(titreOnglet2);
 		onglet2.add(iden1);
 		onglet2.add(buttonSup);
@@ -103,10 +107,11 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		/*********************************************liste des comptes ****************************************************/
 		JPanel onglet3 = new JPanel();
 		//JLabel titreOnglet4 = new JLabel("compte");
-		id = new JLabel("iden");
+		id = new JLabel("");
+		id.setVisible(false);
 
 		//s = new JLabel("solde");
-		buttonList = new JButton("liste");
+		buttonList = new JButton("Lister les comptes crees");
 		//onglet3.add(titreOnglet4);
 
 		onglet3.add(id);
@@ -115,7 +120,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		onglet3.add(buttonList);
 		buttonList.addActionListener(this);
 		onglet3.setPreferredSize(new Dimension(400, 180));
-		onglets.addTab("liste comptes", onglet3);
+		onglets.addTab("Liste comptes", onglet3);
 
 		/*******************************************************************************************************************/
 		JPanel onglet4 = new JPanel();
@@ -125,38 +130,41 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		JTextField iden4 = new JTextField("iden");
 		JTextField iden5 = new JTextField("somme");
 		JTextField iden6 = new JTextField("iden");
+		JTextField iden7 = new JTextField("iden");
 		buttonCrediter = new JButton("Crediter");
 		buttonDebiter = new JButton("Debiter");
 		buttonFermer = new JButton("Fermer");
+		buttonAfficher = new JButton("Afficher les opérations");
 		//onglet3.add(titreOnglet4);
 
 		onglet4.add(iden2);
 		onglet4.add(iden3);
+		onglet4.add(buttonCrediter);
 		onglet4.add(iden4);
 		onglet4.add(iden5);
-		onglet4.add(iden6);
-
-		onglet4.add(buttonCrediter);
 		onglet4.add(buttonDebiter);
+		onglet4.add(iden6);
 		onglet4.add(buttonFermer);
+		onglet4.add(iden7);
+		onglet4.add(buttonAfficher);
 		buttonCrediter.addActionListener(this);
 		buttonDebiter.addActionListener(this);
 		buttonFermer.addActionListener(this);
+		buttonAfficher.addActionListener(this);
 		onglet4.setPreferredSize(new Dimension(400, 180));
-		onglets.addTab("operations comptes", onglet4);
+		onglets.addTab("Operations comptes", onglet4);
 
 		/*******************************************************************************************************************/
 		
-		JPanel onglet5 = new JPanel();
-		buttonSauver = new JButton("Sauver");
-		buttonCharger = new JButton("Charger");
+		buttonSauver = new JButton("Sauvegarder les comptes crees");
+		buttonCharger = new JButton("Charger les comptes depuis une sauvegarde");
 
 		onglet5.add(buttonSauver);
 		onglet5.add(buttonCharger);
 		buttonSauver.addActionListener(this);
 		buttonCharger.addActionListener(this);
 		onglet5.setPreferredSize(new Dimension(400, 180));
-		onglets.addTab("sauver/charger comptes", onglet5);
+		onglets.addTab("Sauver/charger comptes", onglet5);
 
 		/*******************************************************************************************************************/
 		
@@ -164,7 +172,12 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		pannel.add(onglets);
 		f.getContentPane().add(pannel);
 		f.setVisible(true);
-
+		save.setText("Sauvegarde effectuee : ./sauvegarde.txt\n");
+		save.setVisible(false);
+		onglet5.add(save);
+		load.setText("Comptes chargés.\n");
+		load.setVisible(false);
+		onglet5.add(load);
 	}
 
 	@Override
@@ -185,17 +198,17 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 			b.afficherLesComptes();
 		}
 		else if  (source==buttonList){
-			
+			id.setText("<html>");
 			for (int i = 0; i < b.getlesComptes().size(); i++) {
 				Compte maValeur = b.getlesComptes().get(i);
 				//JLabel titreOnglet3 = new JLabel("compte "+i);
-			id.setText(""+maValeur);
-			//n.setText(""+b.getlesComptes().get(i).getNumComp());
-			//s.setText(""+b.getlesComptes().get(i).getSolde());
-
-
+				if (id.getText() != null)
+					id.setText(id.getText()+"<br />"+maValeur);
+				//n.setText(""+b.getlesComptes().get(i).getNumComp());
+				//s.setText(""+b.getlesComptes().get(i).getSolde());
 			}
-			
+			id.setText(id.getText()+"</html>");
+			id.setVisible(true);
 		}
 		else if (source==buttonDebiter){
 			b.getCompte(Integer.parseInt(iden2.getText())).debiter(Integer.parseInt(iden3.getText()));
@@ -206,11 +219,16 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		else if (source==buttonFermer){
 			b.getCompte(Integer.parseInt(iden4.getText())).fermer();
 		}
+		else if (source==buttonAfficher){
+			
+		}
 		else if (source==buttonSauver){
-			b.sauverTxt("banque.txt");
+			b.sauverTxt("sauvegarde.txt");
+			save.setVisible(true);
 		}
 		else if (source==buttonCharger){
-			b=Banque.chargerTxt("banque.txt");
+			b=Banque.chargerTxt("sauvegarde.txt");
+			load.setVisible(true);
 		}
 		}
 	
