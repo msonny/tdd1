@@ -2,29 +2,14 @@
 import java.io.*;
 /**
 * class Compte
-* @author roland garnier
-*@version 0.99
 */
 
 class Compte implements Serializable{
    
 	private double solde;
-   private String id;
-   int numComp;
+	private String id;
+	int numComp;
 
-	/**
-	 * constructeur de compte d'une banque donnee
-	 * @param id
-	 * @param solde
-	 * @param banque
-	 */
-   
-	/*public Compte(int idComptes, String nomDetenteur, double solde) {
-		super();
-		this.id = id;
-		this.numComp = numcomp;
-		this.solde = solde;
-	}*/
 
 	/**
 	 * constructeur de compte general
@@ -62,7 +47,7 @@ class Compte implements Serializable{
    
    /**  
 	 * surcharge de la methode toString
-
+	 *
 	 */
    public String toString(){
 	return "num :"+numComp+" detenteur :"+id+" Solde :"+solde;
@@ -95,6 +80,10 @@ class Compte implements Serializable{
 	solde-=c;
    }
    
+   /** 
+	 * les operations sur un compte : fermer
+	 * 
+	 */
    void fermer(){
 	   solde=0;
    }
