@@ -3,8 +3,7 @@ import java.util.*;
 
 /**
  * Classe Banque 
- * @author Roland Garnier
- * @version 0.99
+* @version 0.99
  * utilise la class Compte define plus bas
  */
 
