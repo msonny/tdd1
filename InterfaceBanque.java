@@ -78,8 +78,14 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 
 		JPanel onglet1 = new JPanel();
 		iden= new JTextField("numero");
+		iden.setFont(police);
+		iden.setPreferredSize(new Dimension(70, 26));
 		nom= new JTextField("detenteur");
+		nom.setFont(police);
+		nom.setPreferredSize(new Dimension(70, 26));
 		solde= new JTextField("solde");
+		solde.setFont(police);
+		solde.setPreferredSize(new Dimension(70, 26));
 		buttonIncr = new JButton("Ajouter");
 		onglet1.add(iden);
 		onglet1.add(nom);
@@ -93,6 +99,8 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		JPanel onglet2 = new JPanel();
 		JLabel titreOnglet2 = new JLabel("Saisir identifiant :");
 		iden1= new JTextField(3);
+		iden1.setFont(police);
+		iden1.setPreferredSize(new Dimension(50, 26));
 		buttonSup = new JButton("Supprimer");
 		onglet2.add(titreOnglet2);
 		onglet2.add(iden1);
@@ -122,11 +130,21 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		JPanel onglet4 = new JPanel();
 		//JLabel titreOnglet4 = new JLabel("compte");
 		iden2 = new JTextField("iden");
+		iden2.setFont(police);
+		iden2.setPreferredSize(new Dimension(130, 26));
 		iden3 = new JTextField("somme");
+		iden3.setFont(police);
+		iden3.setPreferredSize(new Dimension(130, 26));
 		iden4 = new JTextField("iden");
+		iden4.setFont(police);
+		iden4.setPreferredSize(new Dimension(130, 26));
 		iden5 = new JTextField("somme");
+		iden5.setFont(police);
+		iden5.setPreferredSize(new Dimension(130, 26));
 		iden6 = new JTextField("iden");
-		iden7 = new JTextField("iden");
+		iden6.setFont(police);
+		iden6.setPreferredSize(new Dimension(130, 26));
+		//iden7 = new JTextField("iden");
 		affiche = new JTextArea ("");
 		affiche.setEditable(false);
 		buttonCrediter = new JButton("Crediter");
@@ -142,7 +160,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		onglet4.add(buttonDebiter);
 		onglet4.add(iden6);
 		onglet4.add(buttonFermer);
-		onglet4.add(iden7);
+		//onglet4.add(iden7);
 		onglet4.add(buttonAfficher);
 		onglet4.add(affiche);
 		buttonCrediter.addActionListener(this);
