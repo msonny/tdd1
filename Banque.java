@@ -1,16 +1,16 @@
 import java.io.*;
 import java.util.*;
+import java.nio.charset.Charset;
 
 /**
  * Classe Banque 
-* @version 0.99
  * utilise la class Compte define plus bas
  */
 
 public class Banque implements Serializable{
    
 	
-	
+	Charset charset = Charset.forName("UTF-8");
 	ArrayList<Compte> lesComptes; // visible dans le package
     int nb;//le nombre qui permettra la generation automatique des numeros
            // de comptes ; il est visible dans le package
@@ -29,10 +29,17 @@ public class Banque implements Serializable{
     /**
      *  ajout d'un compte a la banque
      * @param c 
+     * verifie aussi s'il n'y a pas deux fois le meme numero de compte
      */
 	
-    public void  ajouter(Compte c){
+    public String  ajouter(Compte c){
+		 for (int i = 0; i < lesComptes.size(); i++) {
+				if (!lesComptes.isEmpty() && lesComptes.get(i).getNumComp()==c.getNumComp()) {
+					return "Echec !! compte existe deja";
+				}
+			}
 	lesComptes.add(c);
+	return "OK";
     }
 
     /**
@@ -50,6 +57,11 @@ public class Banque implements Serializable{
 	return lesComptes.get(i);
     }
 	
+    /**
+     * suppression d'un compte de la banque
+     *
+     */
+	
     public void enlever(int numComp){
 	int i;
 	for ( i=0; i<lesComptes.size();i++){
@@ -63,23 +75,6 @@ public class Banque implements Serializable{
      * saisie d'un compte de la banque
      * @return
      */
-	
-	/*public  Compte  saisir(String s1, int s2){
-	double sold;
-	String id;
-	Scanner entree= new Scanner(System.in);*/
-	/*try{ 
-	    System.out.println("idendifiant :");
-	    id=entree.next();
-	    System.out.println("solde :");
-	    sold=entree.nextDouble();
-	    return  new Compte(s1,s2,this);
-	}
-	catch(Exception e){
-	    //System.err.println("Saisie invalide : recommencer");
-	    return  null;
-	}
-    }*/
 	
     /**
      *  observateur de la liste des comptes de la banque
@@ -159,7 +154,7 @@ public class Banque implements Serializable{
 					   
 
 	/**
-	 * restauration d'una banque a partir d'un fichier cree par la methode sauver
+	 * restauration d'une banque a partir d'un fichier cree par la methode sauver
 	 * @param fichier
 	 * @return
 	 */
@@ -232,14 +227,8 @@ public class Banque implements Serializable{
  *  restauration d'une banque a partir d'un fichier cree par la methode sauverTxt
  *ou tape dans un editeur de texte et respectant la forme suivante
  *premiere ligne : l'attribut nb de la banque
- *seconde ligne et suivante : les attributs de chaque compte de la banque
- *exemple
- *4
- *1 garnier 1000.0
- *2 dupontel 500.0	
- *4 duval	1200.0	
- *nb dans cet exemple le compte numero 3 a certainement ete supprime dans une precedente operation	
-*/
+ *seconde ligne et suivante : les attributs de chaque compte de la banque	
+ */
 	
 	public static Banque chargerTxt(String fichier){
 	Scanner sc=null;	
@@ -266,52 +255,6 @@ public class Banque implements Serializable{
 			sc.close();
 			return b;
 		}
-    }													   
-					   
-					   
-	static public void main(String []args){
-		Banque b=new Banque();
-		for(int i=0;i<3;i++){
-		//b.ajouter(b.saisir());
-		}
-		
-		System.out.println("Etat de la Banque :");
-		b.afficherLesComptes();
-		System.out.println("On sauve  la Banque  en mode serialisation dans banque.sav:");
-		b.sauver("banque.sav");
-		System.out.println("On sauve  la Banque  en mode texte dans banque.txt:");
-		b.sauverTxt("banque.txt");	
-		System.out.println("On detruit la banque");
-		b=new Banque();
-		System.out.println("Etat de la Banque :");
-		b.afficherLesComptes();
-		System.out.println("On restaure la banque à partir du fichier banque.sauv :");
-		b=Banque.charger("banque.sav");
-		System.out.println("Etat de la Banque :");
-		b.afficherLesComptes();		
-		System.out.println("On detruit a nouveau la banque");
-		b=new Banque();
-		System.out.println("Etat de la Banque :");
-		b.afficherLesComptes();
-		System.out.println("On restaure la banque à partir du fichier banque.txt :");
-		b=Banque.chargerTxt("banque.txt");
-		System.out.println("Etat de la Banque :");
-		b.afficherLesComptes();		
-		System.out.println("On supprime lde compte numero 2");
-		b.enlever(2);
-		System.out.println("Etat de la Banque :");
-		b.afficherLesComptes();
-		System.out.println("On credite le compte numero 3 de 1000");
-		b.getCompte(3).crediter(1000);
-		System.out.println("Etat de la Banque :");
-		b.afficherLesComptes();					
-		System.out.println("On debite le compte numero 1 de 1000");
-		b.getCompte(1).debiter(1000);
-		System.out.println("Etat de la Banque :");
-		b.afficherLesComptes();	
-		
-		
-    }
-  
+    }													    
 }
 
