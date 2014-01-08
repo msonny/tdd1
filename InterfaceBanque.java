@@ -18,7 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+
 
 public class InterfaceBanque extends JFrame implements ActionListener{
 
@@ -44,7 +48,9 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 	JLabel load=new JLabel();
 	JLabel credit=new JLabel();
 	JLabel debit=new JLabel();
-	JLabel affiche=new JLabel();
+	//JLabel affiche=new JLabel();
+	JTextArea affiche = new JTextArea();
+	JScrollPane scrollPane = new JScrollPane (affiche);
 
 	public InterfaceBanque() {
 		b = new Banque();
@@ -55,9 +61,9 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		f.setSize(520, 550);
 		JPanel pannel = new JPanel();
 		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-	    //Ca s'est pour éviter que la fenêtre se ferme même si on clique sur "Non"
+	    //Ca s'est pour eviter que la fenêtre se ferme même si on clique sur "Non"
 	 
-	    //Définition de l'écouteur à l'aide d'une classe interne anonyme
+	    //Definition de l'ecouteur à l'aide d'une classe interne anonyme
 	    f.addWindowListener(new WindowAdapter(){
 	             public void windowClosing(WindowEvent e){
 	         		File MyFile = new File("evenement.txt");
@@ -68,7 +74,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		JTabbedPane onglets = new JTabbedPane(SwingConstants.TOP);
 
 		JPanel onglet1 = new JPanel();
-		iden= new JTextField("numéro");
+		iden= new JTextField("numero");
 		nom= new JTextField("detenteur");
 		solde= new JTextField("solde");
 		buttonIncr = new JButton("Ajouter");
@@ -118,11 +124,12 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		iden5 = new JTextField("somme");
 		iden6 = new JTextField("iden");
 		iden7 = new JTextField("iden");
-		affiche = new JLabel("");
+		affiche = new JTextArea ("");
+		affiche.setEditable(false);
 		buttonCrediter = new JButton("Crediter");
 		buttonDebiter = new JButton("Debiter");
 		buttonFermer = new JButton("Fermer");
-		buttonAfficher = new JButton("Afficher les opérations");
+		buttonAfficher = new JButton("Afficher les operations");
 
 		onglet4.add(iden2);
 		onglet4.add(iden3);
@@ -169,7 +176,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 		save.setText("Sauvegarde effectuee : ./sauvegarde.txt");
 		save.setVisible(false);
 		onglet5.add(save);
-		load.setText("Comptes chargés.");
+		load.setText("Comptes charges.");
 		load.setVisible(false);
 		onglet5.add(load);
 	}
@@ -187,7 +194,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 			try{
 				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
 
-				ecrivain.println("Ajout d'un compte : identifiant : " +iden.getText()+"nom : " +nom.getText()+"solde : " +solde.getText());
+				ecrivain.println("Ajout d'un compte : identifiant : " +iden.getText()+" nom : " +nom.getText()+" solde : " +solde.getText());
 			}
 			catch(FileNotFoundException ex){
 				System.err.println(ex);
@@ -212,7 +219,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 			try{
 				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
 
-				ecrivain.println("Suppression du compte numéro " +iden1.getText());
+				ecrivain.println("Suppression du compte numero " +iden1.getText());
 			}
 			catch(FileNotFoundException ex){
 				System.err.println(ex);
@@ -272,7 +279,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 			try{
 				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
 
-				ecrivain.println("Crédit du compte " +iden2.getText()+"de " +iden3.getText());
+				ecrivain.println("Credit du compte "+iden2.getText()+" de "+iden3.getText()+" €.");
 			}
 			catch(FileNotFoundException ex){
 				System.err.println(ex);
@@ -299,7 +306,7 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 			try{
 				ecrivain = new PrintWriter(new BufferedWriter(new FileWriter("evenement.txt", true)));
 
-				ecrivain.println("Débit du compte " +iden4.getText()+"de " +iden5.getText());
+				ecrivain.println("Debit du compte "+iden4.getText()+" de "+iden5.getText()+" €.");
 			}
 			catch(FileNotFoundException ex){
 				System.err.println(ex);
@@ -321,15 +328,26 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 			//b.getCompte(Integer.parseInt(iden4.getText())).fermer();
 		}
 		else if (source==buttonAfficher){
+			// affichage des operations à partir de la lecture du fichier txt cree
 			Scanner sc=null;	
 				try{
+					// si on a dejà appuye sur ce bouton, il faut effacer l'ancien contenu de l'affichage (sinon il y a duplication des informations)
+					if (affiche.getText()!=null){
+						affiche.setText("");
+					}
 					sc= new Scanner(new File("evenement.txt")).useLocale(Locale.US);
 					
+					// gestion de l'affichage
+					scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+					scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
 					while(sc.hasNext()){
 						
 						String nom=sc.nextLine();
-						affiche.setText("<html>"+nom+"<br /></html>");
-						
+						if (affiche.getText() != null)
+							affiche.setText(affiche.getText()+nom+"\n");
+						else
+							affiche.setText(nom+"\n");
 					}
 					
 				}
