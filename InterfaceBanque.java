@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
 import java.util.Scanner;
+import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -51,6 +52,8 @@ public class InterfaceBanque extends JFrame implements ActionListener{
 	//JLabel affiche=new JLabel();
 	JTextArea affiche = new JTextArea();
 	JScrollPane scrollPane = new JScrollPane (affiche);
+	
+	Font police = new Font("Arial", Font.BOLD, 12);
 
 	public InterfaceBanque() {
 		b = new Banque();
